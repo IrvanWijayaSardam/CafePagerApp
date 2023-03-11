@@ -60,7 +60,7 @@ func main() {
 		pagerRoutes.DELETE("/:id", pagerController.Delete)
 	}
 
-	pagerStatusRoutes := r.Group("/api/status", middleware.AuthorizeJWT(jwtService))
+	pagerStatusRoutes := r.Group("/api/status")
 	{
 		pagerStatusRoutes.GET("/:id", pagerController.FindStatusById)
 	}
