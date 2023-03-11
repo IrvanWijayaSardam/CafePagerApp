@@ -88,7 +88,7 @@ func (c *pagerController) FindStatusById(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data Not Found", "No Data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		res := helper.BuildResponse(true, "OK", true)
+		res := helper.BuildResponse(true, "OK", pager.PagerStatus)
 		context.JSON(http.StatusOK, res)
 	}
 }
