@@ -77,7 +77,7 @@ func (c *pagerController) Insert(context *gin.Context) {
 }
 
 func (c *pagerController) FindStatusById(context *gin.Context) {
-	id, err := strconv.ParseUint(context.Param("user_id"), 0, 0)
+	id, err := strconv.ParseUint(context.Param("id"), 0, 0)
 	if err != nil {
 		res := helper.BuildErrorResponse("No Parameter ID was found", err.Error(), helper.EmptyObj{})
 		context.AbortWithStatusJSON(http.StatusBadRequest, res)
