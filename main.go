@@ -54,11 +54,16 @@ func main() {
 	pagerRoutes := r.Group("api/pager", middleware.AuthorizeJWT(jwtService))
 	{
 		pagerRoutes.GET("/", pagerController.All)
-		pagerRoutes.GET("/status/:id", pagerController.FindStatusById)
 		pagerRoutes.POST("/", pagerController.Insert)
 		pagerRoutes.GET("/:id", pagerController.FindById)
 		pagerRoutes.PUT("/:id", pagerController.Update)
 		pagerRoutes.DELETE("/:id", pagerController.Delete)
 	}
+
+	pagerStatusRoutes := r.Group("/api/status", middleware.AuthorizeJWT(jwtService))
+	{
+		pagerStatusRoutes.GET("/:id", pagerController.FindStatusById)
+	}
+
 	r.Run()
 }
