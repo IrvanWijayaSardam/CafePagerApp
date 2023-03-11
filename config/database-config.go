@@ -1,8 +1,8 @@
 package config
 
 import (
-	"fmt"
-	"os"
+	// "fmt"
+	// "os"
 
 	"github.com/IrvanWijayaSardam/mynotesapp/entity"
 	"github.com/joho/godotenv"
@@ -17,13 +17,13 @@ func SetupDatabaseConnection() *gorm.DB {
 		panic("Failed to load env file")
 	}
 
-	dbUser := os.Getenv("DB_USER")
-	dbPass := os.Getenv("DB_PASS")
-	dbHost := os.Getenv("DB_HOST")
-	dbName := os.Getenv("DB_NAME")
+	// dbUser := os.Getenv("DB_USER")
+	// dbPass := os.Getenv("DB_PASS")
+	// dbHost := os.Getenv("DB_HOST")
+	// dbName := os.Getenv("DB_NAME")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbName)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	//dsn := fmt.Sprintf("%s:%s@tcp(%s:7596)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbName)
+	db, err := gorm.Open(mysql.Open("mysql -hcontainers-us-west-105.railway.app -uroot -pEGeAWNG2In2EWfptYa7r --port 7596 --protocol=TCP railway"), &gorm.Config{})
 
 	if err != nil {
 		panic("Failed to create connection to database")
