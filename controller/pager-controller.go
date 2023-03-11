@@ -16,6 +16,7 @@ import (
 type PagerController interface {
 	All(context *gin.Context)
 	FindById(context *gin.Context)
+	FindStatusById(context *gin.Context)
 	Insert(context *gin.Context)
 	Update(context *gin.Context)
 	Delete(context *gin.Context)
@@ -72,6 +73,23 @@ func (c *pagerController) Insert(context *gin.Context) {
 		result := c.pagerService.Insert(pagerCreateDTO)
 		response := helper.BuildResponse(true, "OK!", result)
 		context.JSON(http.StatusCreated, response)
+	}
+}
+
+func (c *pagerController) FindStatusById(context *gin.Context) {
+	id, err := strconv.ParseUint(context.Param("user_id"), 0, 0)
+	if err != nil {
+		res := helper.BuildErrorResponse("No Parameter ID was found", err.Error(), helper.EmptyObj{})
+		context.AbortWithStatusJSON(http.StatusBadRequest, res)
+		return
+	}
+	var pager entity.Pager = c.pagerService.FindByID(id)
+	if (pager == entity.Pager{}) {
+		res := helper.BuildErrorResponse("Data Not Found", "No Data with given id", helper.EmptyObj{})
+		context.JSON(http.StatusNotFound, res)
+	} else {
+		res := helper.BuildResponse(true, "OK", true)
+		context.JSON(http.StatusOK, res)
 	}
 }
 

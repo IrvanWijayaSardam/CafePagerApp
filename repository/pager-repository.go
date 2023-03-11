@@ -11,6 +11,7 @@ type PagerRepository interface {
 	DeletePager(b *entity.Pager)
 	AllPager() []entity.Pager
 	FindPagerById(pagerUserID uint64) entity.Pager
+	FindStatusById(pagerUserID uint64) bool
 }
 
 type pagerConnection struct {
@@ -44,6 +45,12 @@ func (db *pagerConnection) FindPagerById(UserID uint64) entity.Pager {
 	var pager entity.Pager
 	db.connection.Preload("user_id").Find(&pager, UserID)
 	return pager
+}
+
+func (db *pagerConnection) FindStatusById(UserID uint64) bool {
+	var pager entity.Pager
+	db.connection.Preload("user_id").Find(&pager, UserID)
+	return pager.PagerStatus
 }
 
 func (db *pagerConnection) AllPager() []entity.Pager {
