@@ -111,7 +111,7 @@ func (c *pagerController) Delete(context *gin.Context) {
 		response := helper.BuildErrorResponse("Failed tou get id", "No param id were found", helper.EmptyObj{})
 		context.JSON(http.StatusBadRequest, response)
 	}
-	pager.PagerID = id
+	pager.ID = id
 	authHeader := context.GetHeader("Authorization")
 	token, errToken := c.jwtService.ValidateToken(authHeader)
 	if errToken != nil {
@@ -119,7 +119,7 @@ func (c *pagerController) Delete(context *gin.Context) {
 	}
 	claims := token.Claims.(jwt.MapClaims)
 	userID := fmt.Sprintf("%v", claims["userid"])
-	if c.pagerService.IsAllowedToEdit(userID, pager.PagerID) {
+	if c.pagerService.IsAllowedToEdit(userID, pager.ID) {
 		c.pagerService.Delete(pager)
 		res := helper.BuildResponse(true, "Deleted", helper.EmptyObj{})
 		context.JSON(http.StatusOK, res)

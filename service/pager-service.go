@@ -63,6 +63,6 @@ func (service *pagerService) FindByID(pagerID uint64) entity.Pager {
 
 func (service *pagerService) IsAllowedToEdit(userID string, pagerID uint64) bool {
 	b := service.pagerRepository.FindPagerById(pagerID)
-	id := fmt.Sprintf("%v", b.User.ID)
+	id := fmt.Sprintf("%v", b.UserID)
 	return userID == id
 }

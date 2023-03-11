@@ -26,13 +26,13 @@ func NewPagerRepository(dbConn *gorm.DB) PagerRepository {
 
 func (db *pagerConnection) InsertPager(b *entity.Pager) entity.Pager {
 	db.connection.Save(&b)
-	db.connection.Preload("PagerID").Find(&b)
+	db.connection.Preload("User").Find(&b)
 	return *b
 }
 
 func (db *pagerConnection) UpdatePager(b *entity.Pager) entity.Pager {
 	db.connection.Save(&b)
-	db.connection.Preload("PagerID").Find(&b)
+	db.connection.Preload("UserID").Find(&b)
 	return *b
 }
 
@@ -40,14 +40,14 @@ func (db *pagerConnection) DeletePager(b *entity.Pager) {
 	db.connection.Delete(&b)
 }
 
-func (db *pagerConnection) FindPagerById(PagerID uint64) entity.Pager {
+func (db *pagerConnection) FindPagerById(UserID uint64) entity.Pager {
 	var pager entity.Pager
-	db.connection.Preload("PagerID").Find(&pager, PagerID)
+	db.connection.Preload("user_id").Find(&pager, UserID)
 	return pager
 }
 
 func (db *pagerConnection) AllPager() []entity.Pager {
 	var pager []entity.Pager
-	db.connection.Preload("PagerID").Find(&pager)
+	db.connection.Preload("User").Find(&pager)
 	return pager
 }

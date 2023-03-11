@@ -17,7 +17,7 @@ type notesConnection struct {
 	connection *gorm.DB
 }
 
-//NewNotesRepository .asd
+// NewNotesRepository .asd
 func NewNotesRepository(dbConn *gorm.DB) NotesRepository {
 	return &notesConnection{
 		connection: dbConn,
@@ -26,7 +26,7 @@ func NewNotesRepository(dbConn *gorm.DB) NotesRepository {
 
 func (db *notesConnection) InsertNotes(b *entity.Notes) entity.Notes {
 	db.connection.Save(&b)
-	db.connection.Preload("UserID").Find(&b)
+	db.connection.Preload("User").Find(&b)
 	return *b
 }
 
