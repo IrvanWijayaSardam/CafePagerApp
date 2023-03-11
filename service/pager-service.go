@@ -16,6 +16,7 @@ type PagerService interface {
 	Delete(b entity.Pager)
 	All() []entity.Pager
 	FindByID(bookID uint64) entity.Pager
+	FindStatusById(bookID uint64) bool
 	IsAllowedToEdit(userID string, bookID uint64) bool
 }
 
@@ -59,6 +60,10 @@ func (service *pagerService) All() []entity.Pager {
 
 func (service *pagerService) FindByID(pagerID uint64) entity.Pager {
 	return service.pagerRepository.FindPagerById(pagerID)
+}
+
+func (service *pagerService) FindStatusById(pagerID uint64) bool {
+	return service.pagerRepository.FindStatusById(pagerID)
 }
 
 func (service *pagerService) IsAllowedToEdit(userID string, pagerID uint64) bool {

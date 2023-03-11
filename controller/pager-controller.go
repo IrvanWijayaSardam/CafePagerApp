@@ -40,7 +40,7 @@ func (c *pagerController) All(context *gin.Context) {
 }
 
 func (c *pagerController) FindById(context *gin.Context) {
-	id, err := strconv.ParseUint(context.Param("pager_id"), 0, 0)
+	id, err := strconv.ParseUint(context.Param("user_id"), 0, 0)
 	if err != nil {
 		res := helper.BuildErrorResponse("No Parameter ID was found", err.Error(), helper.EmptyObj{})
 		context.AbortWithStatusJSON(http.StatusBadRequest, res)
@@ -90,7 +90,7 @@ func (c *pagerController) Update(context *gin.Context) {
 	}
 	claims := token.Claims.(jwt.MapClaims)
 	userID := fmt.Sprintf("%v", claims["userid"])
-	if c.pagerService.IsAllowedToEdit(userID, pagerUpdateDTO.UserID) {
+	if c.pagerService.IsAllowedToEdit(userID, pagerUpdateDTO.ID) {
 		id, errID := strconv.ParseUint(userID, 10, 64)
 		if errID == nil {
 			pagerUpdateDTO.UserID = id

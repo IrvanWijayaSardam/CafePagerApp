@@ -23,7 +23,7 @@ type jwtService struct {
 	issuer    string
 }
 
-//NewJWTService method is creates a new instance of JWTService
+// NewJWTService method is creates a new instance of JWTService
 func NewJWTService() JWTService {
 	return &jwtService{
 		issuer:    "aminivan",
@@ -43,7 +43,7 @@ func (j *jwtService) GenerateToken(UserID string) string {
 	claims := &jwtCustomClaim{
 		UserID,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().AddDate(1, 0, 0).Unix(),
+			ExpiresAt: time.Now().AddDate(0, 3, 0).Unix(),
 			Issuer:    j.issuer,
 			IssuedAt:  time.Now().Unix(),
 		},
