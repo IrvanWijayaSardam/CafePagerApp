@@ -63,6 +63,7 @@ func main() {
 	pagerStatusRoutes := r.Group("/api/status")
 	{
 		pagerStatusRoutes.GET("/:id", pagerController.FindStatusById)
+		pagerStatusRoutes.PUT("/:id", pagerController.Update)
 	}
 
 	r.Run()

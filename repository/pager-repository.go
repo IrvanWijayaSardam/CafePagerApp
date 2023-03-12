@@ -8,6 +8,7 @@ import (
 type PagerRepository interface {
 	InsertPager(b *entity.Pager) entity.Pager
 	UpdatePager(b *entity.Pager) entity.Pager
+	UpdateStatusPager(b *entity.Pager) entity.Pager
 	DeletePager(b *entity.Pager)
 	AllPager() []entity.Pager
 	FindPagerById(pagerUserID uint64) entity.Pager
@@ -32,6 +33,12 @@ func (db *pagerConnection) InsertPager(b *entity.Pager) entity.Pager {
 }
 
 func (db *pagerConnection) UpdatePager(b *entity.Pager) entity.Pager {
+	db.connection.Save(&b)
+	db.connection.Preload("UserID").Find(&b)
+	return *b
+}
+
+func (db *pagerConnection) UpdateStatusPager(b *entity.Pager) entity.Pager {
 	db.connection.Save(&b)
 	db.connection.Preload("UserID").Find(&b)
 	return *b
