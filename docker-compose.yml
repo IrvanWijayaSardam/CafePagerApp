@@ -6,9 +6,9 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: AminiVan12!
-      MYSQL_DATABASE: MyNotesServer
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mantrapager_db
     ports:
       - "3309:3306"
     volumes:
-      - $HOME/Desktop/MySQL-Snippets/school.sql:/school.sql
+      - ./pager.sql
